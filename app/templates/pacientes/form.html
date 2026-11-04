@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% set editando = paciente is not none %}
+{% block title %}{{ 'Editar paciente' if editando else 'Nuevo paciente' }}{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1 class="page-title">
+      <i class="bi bi-person-plus text-success me-2"></i>
+      {{ 'Editar paciente' if editando else 'Nuevo paciente' }}
+    </h1>
+    <p class="page-subtitle">
+      {{ 'Actualiza los datos de contacto del paciente.' if editando else 'Registra un nuevo paciente en la clínica.' }}
+    </p>
+  </div>
+  <a href="{{ url_for('bp_pacientes.index') }}" class="btn btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i> Volver al listado
+  </a>
+</div>
+
+<div class="card mx-auto" style="max-width: 720px;">
+  <div class="card-header">
+    <i class="bi bi-clipboard2-pulse me-2 text-success"></i>Datos del paciente
+  </div>
+  <div class="card-body">
+    <form method="post" novalidate>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre completo <span class="text-danger">*</span></label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-person"></i></span>
+          <input type="text" class="form-control" id="nombre" name="nombre" maxlength="120" required
+                 placeholder="Ej. Juan Pérez Mamani"
+                 value="{{ request.form.get('nombre', paciente.nombre if paciente else '') }}">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+          <input type="tel" class="form-control" id="telefono" name="telefono" maxlength="30" required
+                 placeholder="Ej. 71234567"
+                 value="{{ request.form.get('telefono', paciente.telefono if paciente else '') }}">
+        </div>
+        <div class="form-text">Solo números, espacios, paréntesis, guiones y el signo +.</div>
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-end gap-2 mt-4">
+        <a href="{{ url_for('bp_pacientes.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-check2-circle me-1"></i>
+          {{ 'Guardar cambios' if editando else 'Registrar paciente' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

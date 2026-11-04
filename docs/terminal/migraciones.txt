@@ -1,0 +1,11 @@
+$ rm -f /tmp/medicontrol_demo.db
+$ DATABASE_URL=sqlite:////tmp/medicontrol_demo.db flask --app run.py db upgrade
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 2a61b8b3acee, Esquema inicial: medicos, pacientes y citas
+$ flask --app run.py db current
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+2a61b8b3acee (head)
+$ sqlite3 /tmp/medicontrol_demo.db ".tables"
+alembic_version  citas            medicos          pacientes      

@@ -1,0 +1,1387 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Informe MediControl — Mayte Mikaela Quispe Perez</title>
+<style>
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    margin: 0;
+    font-family: "Liberation Sans", "DejaVu Sans", Arial, sans-serif;
+    font-size: 10.3pt;
+    line-height: 1.55;
+    color: #1e293b;
+  }
+  h1, h2, h3, h4 { color: #0f172a; line-height: 1.25; }
+  h1.doc-title {
+    font-size: 21pt;
+    margin: 0 0 3mm;
+    letter-spacing: -0.02em;
+    color: #0f766e;
+  }
+  h2 { font-size: 14pt; margin: 7mm 0 2.5mm; color: #115e59; }
+  h3 { font-size: 11.5pt; margin: 5mm 0 2mm; color: #0f766e; }
+  p { margin: 0 0 3mm; text-align: justify; }
+  ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+  li { margin-bottom: 1.4mm; }
+  strong { color: #0f172a; }
+  a { color: #0f766e; text-decoration: none; }
+  .parte { break-before: page; }
+  .section-kicker {
+    display: inline-block;
+    font-size: 8pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #0f766e;
+    background: #ccfbf1;
+    border-radius: 20px;
+    padding: 1.2mm 4mm;
+    margin-bottom: 2.5mm;
+    font-weight: 700;
+  }
+  .lead { font-size: 11pt; color: #475569; margin-bottom: 4mm; }
+
+  /* ---------- Portada ---------- */
+  .cover {
+    height: 256mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    break-after: page;
+    position: relative;
+  }
+  .cover-top { border-bottom: 1px solid #e2e8f0; padding-bottom: 4mm; }
+  .univ {
+    font-size: 13pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #0f766e;
+  }
+  .fac { font-size: 9pt; color: #64748b; margin-top: 1mm; }
+  .cover-main { padding: 4mm 0; }
+  .cover-badge {
+    display: inline-block;
+    background: #0f766e;
+    color: #fff;
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    padding: 1.8mm 4.5mm;
+    border-radius: 4px;
+    margin-bottom: 6mm;
+  }
+  .cover-icon {
+    width: 20mm; height: 20mm; border-radius: 6mm;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 5mm;
+    box-shadow: 0 5mm 12mm rgba(15, 118, 110, 0.25);
+  }
+  .cover h1 {
+    font-size: 38pt;
+    margin: 0;
+    letter-spacing: -0.035em;
+    color: #0f172a;
+  }
+  .cover h1 span { color: #0f766e; }
+  .cover-sub {
+    font-size: 15pt;
+    color: #334155;
+    margin: 2mm 0 5mm;
+    max-width: 150mm;
+    line-height: 1.35;
+  }
+  .cover-stack {
+    font-size: 9pt;
+    color: #0f766e;
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    border-radius: 8px;
+    padding: 2.5mm 4mm;
+    display: inline-block;
+    font-weight: 600;
+  }
+  .cover-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3mm 8mm;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 5mm;
+    margin-bottom: 4mm;
+  }
+  .cover-info div { display: flex; flex-direction: column; }
+  .cover-info span {
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin-bottom: 0.8mm;
+  }
+  .cover-info strong { font-size: 10.5pt; color: #0f172a; }
+  .cover-repo {
+    font-size: 8.5pt;
+    color: #475569;
+    border-left: 3px solid #14b8a6;
+    padding: 2mm 0 2mm 3mm;
+  }
+  .cover-repo code { font-size: 8.5pt; color: #0f766e; }
+  .cover-date {
+    font-size: 8.5pt;
+    color: #64748b;
+    text-align: right;
+    margin-top: 3mm;
+  }
+
+  /* ---------- Índice ---------- */
+  .indice { break-after: page; }
+  .toc { list-style: none; padding: 0; margin: 5mm 0 0; }
+  .toc li {
+    display: flex;
+    align-items: baseline;
+    gap: 2mm;
+    padding: 2.5mm 0;
+    border-bottom: 1px dotted #cbd5e1;
+    font-size: 10.5pt;
+  }
+  .toc .num { color: #0f766e; font-weight: 700; width: 8mm; }
+  .toc .nombre { flex: 1; }
+  .toc .pagina { color: #0f766e; font-weight: 700; }
+
+  /* ---------- Cajas ---------- */
+  .nota {
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    border-left: 4px solid #14b8a6;
+    border-radius: 6px;
+    padding: 3.5mm 4mm;
+    margin: 4mm 0;
+    font-size: 9.4pt;
+  }
+  .nota strong { color: #115e59; }
+  .aviso {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 4px solid #f59e0b;
+    border-radius: 6px;
+    padding: 3.5mm 4mm;
+    margin: 4mm 0;
+    font-size: 9.4pt;
+  }
+  .archivo {
+    font-size: 8pt;
+    color: #475569;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+    padding: 1.5mm 3mm;
+    font-family: "DejaVu Sans Mono", monospace;
+    display: inline-block;
+    margin-top: 2mm;
+  }
+  pre {
+    margin: 0 0 4mm;
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 0 6px 6px 6px;
+    padding: 4mm;
+    font-size: 7.9pt;
+    line-height: 1.5;
+    font-family: "DejaVu Sans Mono", monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border: 1px solid #1e293b;
+  }
+  pre .c { color: #94a3b8; }
+  pre .k { color: #5eead4; }
+  pre .s { color: #fcd34d; }
+  pre .f { color: #93c5fd; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 3mm 0 5mm;
+    font-size: 8.9pt;
+  }
+  th {
+    background: #f1f5f9;
+    color: #334155;
+    text-align: left;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2mm 2.5mm;
+    border-bottom: 1.5px solid #cbd5e1;
+  }
+  td {
+    padding: 2mm 2.5mm;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .si { color: #15803d; font-weight: 700; }
+  .chip {
+    display: inline-block;
+    background: #ccfbf1;
+    color: #0f766e;
+    border-radius: 4px;
+    padding: 0.4mm 1.8mm;
+    font-size: 7.7pt;
+    font-weight: 600;
+    font-family: "DejaVu Sans Mono", monospace;
+  }
+
+  /* ---------- Figuras ---------- */
+  .figura {
+    margin: 5mm 0 6mm;
+    break-inside: avoid;
+    text-align: center;
+  }
+  .figura img {
+    display: block;
+    max-width: 100%;
+    max-height: 210mm;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    box-shadow: 0 2mm 6mm rgba(15, 23, 42, 0.10);
+  }
+  figcaption {
+    font-size: 8.4pt;
+    color: #64748b;
+    margin-top: 2.5mm;
+    text-align: center;
+    line-height: 1.4;
+  }
+  figcaption strong { color: #0f766e; }
+  .dos-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    margin: 3mm 0;
+  }
+  .mini-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 3.5mm;
+  }
+  .mini-card h4 { margin: 0 0 1.5mm; font-size: 10pt; color: #0f766e; }
+  .mini-card p { margin: 0; font-size: 8.8pt; color: #475569; text-align: left; }
+  .firma {
+    margin-top: 18mm;
+    display: flex;
+    justify-content: center;
+  }
+  .firma div {
+    width: 80mm;
+    border-top: 1px solid #64748b;
+    text-align: center;
+    padding-top: 2mm;
+    font-size: 8.8pt;
+    color: #475569;
+  }
+  .repo-final {
+    background: linear-gradient(120deg, #0f766e, #0d9488);
+    color: #fff;
+    border-radius: 10px;
+    padding: 6mm;
+    margin: 6mm 0;
+  }
+  .repo-final span {
+    display: block;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.85;
+    margin-bottom: 2mm;
+  }
+  .repo-final code {
+    font-size: 11pt;
+    color: #fff;
+    font-family: "DejaVu Sans Mono", monospace;
+    word-break: break-all;
+  }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 2mm 0 2mm 8mm;
+    border-bottom: 1px solid #e2e8f0;
+    position: relative;
+  }
+  .checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 1.7mm;
+    color: #fff;
+    background: #0f766e;
+    width: 5mm;
+    height: 5mm;
+    border-radius: 50%;
+    font-size: 7pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= PORTADA ================= -->
+<section class="cover">
+  <div class="cover-top">
+    <div class="univ">UNIVERSIDAD PÚBLICA DE EL ALTO</div>
+    <div class="fac">Tecnologías Emergentes II · Gestión 2026</div>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-badge">SEGUNDO PARCIAL · PRÁCTICO</div>
+    <div class="cover-icon">
+      <svg width="42" height="42" viewBox="0 0 64 64" fill="none">
+        <path d="M9 34h11l5-11 7 22 6-15 4 4h13" stroke="#ffffff" stroke-width="4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1>Medi<span>Control</span></h1>
+    <div class="cover-sub">
+      Sistema monolítico modular para la gestión de médicos y citas médicas
+    </div>
+    <div class="cover-stack">
+      Flask · SQLAlchemy · Flask-Migrate · Bootstrap 5 · SQLite
+    </div>
+  </div>
+
+  <div>
+    <div class="cover-info">
+      <div><span>Estudiante</span><strong>Mayte Mikaela Quispe Perez</strong></div>
+      <div><span>Materia</span><strong>TEM-742 Tecnologías Emergentes II</strong></div>
+      <div><span>Docente</span><strong>M. Sc. Mario Torrez C.</strong></div>
+      <div><span>Evaluación</span><strong>Segundo Parcial — Práctico</strong></div>
+      <div><span>Universidad</span><strong>Universidad Pública de El Alto</strong></div>
+      <div><span>Fecha</span><strong>3 de noviembre de 2026</strong></div>
+    </div>
+    <div class="cover-repo">
+      <strong>Repositorio GitHub:</strong><br>
+      <code>https://github.com/mikaelamay/segundo_parcial_mmqp</code>
+    </div>
+    <div class="cover-date">El Alto — Bolivia</div>
+  </div>
+</section>
+
+<!-- ================= ÍNDICE ================= -->
+<section class="indice">
+  <div class="section-kicker">Contenido</div>
+  <h1 class="doc-title">Índice del informe</h1>
+  <p class="lead">
+    Documentación del desarrollo, configuración, modelos, migraciones, CRUDs,
+    plantillas y pruebas de funcionamiento del sistema MediControl.
+  </p>
+
+  <ol class="toc">
+    <li><span class="num">1</span><span class="nombre">Introducción y objetivos</span><span class="pagina">{{P_INTRO}}</span></li>
+    <li><span class="num">2</span><span class="nombre">Verificación de requerimientos</span><span class="pagina">{{P_REQ}}</span></li>
+    <li><span class="num">3</span><span class="nombre">Parte 1 — Arquitectura y configuración</span><span class="pagina">{{P1}}</span></li>
+    <li><span class="num">4</span><span class="nombre">Parte 2 — Modelos y migraciones</span><span class="pagina">{{P2}}</span></li>
+    <li><span class="num">5</span><span class="nombre">Parte 3 — CRUD y plantillas</span><span class="pagina">{{P3}}</span></li>
+    <li><span class="num">6</span><span class="nombre">Parte 4 — Funcionamiento de la aplicación</span><span class="pagina">{{P4}}</span></li>
+    <li><span class="num">7</span><span class="nombre">Conclusiones</span><span class="pagina">{{P_CONC}}</span></li>
+    <li><span class="num">8</span><span class="nombre">Anexo — Ejecución y entregables</span><span class="pagina">{{P_ANEXO}}</span></li>
+  </ol>
+
+  <div class="nota" style="margin-top: 12mm;">
+    <strong>Resumen del proyecto.</strong> MediControl es una aplicación web desarrollada con
+    Flask que implementa el patrón <em>Application Factory</em>, tres Blueprints independientes,
+    modelos relacionados con SQLAlchemy, migraciones versionadas con Flask-Migrate y una
+    interfaz responsiva construida sobre Bootstrap 5. La base de datos utilizada es SQLite,
+    tal como solicita el enunciado del examen.
+  </div>
+</section>
+
+<!-- ================= 1. INTRODUCCIÓN ================= -->
+<section class="parte" id="intro">
+  <div class="section-kicker">Sección 1</div>
+  <h1 class="doc-title">Introducción y objetivos</h1>
+
+  <p>
+    La empresa <strong>MediControl</strong> necesita administrar la información de sus médicos,
+    sus pacientes y las citas que se agendan diariamente. Para resolver esta necesidad se
+    construyó un <strong>sistema monolítico modular</strong>: una sola aplicación desplegable,
+    pero organizada internamente por módulos de negocio independientes (médicos, pacientes y
+    citas), cada uno con sus propias rutas y plantillas.
+  </p>
+  <p>
+    El backend se implementó con <strong>Flask</strong>, el acceso a datos con
+    <strong>SQLAlchemy</strong>, el control de versiones del esquema con
+    <strong>Flask-Migrate</strong> y la interfaz con <strong>Bootstrap 5</strong>. La base de
+    datos es <strong>SQLite</strong>, almacenada en el archivo <span class="chip">instance/medicontrol.db</span>,
+    conforme al requerimiento de la Parte 1 del examen.
+  </p>
+
+  <h2>Objetivos</h2>
+  <ul>
+    <li>Implementar el patrón <strong>Application Factory</strong> mediante <span class="chip">create_app()</span>.</li>
+    <li>Crear y registrar los Blueprints <span class="chip">bp_medicos</span>, <span class="chip">bp_pacientes</span> y <span class="chip">bp_citas</span> con sus prefijos de URL.</li>
+    <li>Definir los modelos y sus relaciones uno a muchos, y versionar el esquema con migraciones.</li>
+    <li>Construir los CRUD completos y las plantillas que heredan de una plantilla base común.</li>
+    <li>Verificar el funcionamiento con datos de prueba y operaciones reales (alta, edición, consulta y baja).</li>
+  </ul>
+
+  <h2>Alcance y decisiones de diseño</h2>
+  <p>
+    El sistema cubre el ciclo completo de gestión: registro de médicos y pacientes, agenda de
+    citas, edición y eliminación controlada. Se incorporaron validaciones adicionales para
+    evitar citas duplicadas de un mismo médico en la misma fecha y hora, y para impedir la
+    eliminación de médicos o pacientes que tengan citas asociadas, protegiendo así la
+    integridad referencial.
+  </p>
+  <p>
+    La interfaz incluye un panel principal con indicadores, búsqueda de médicos y pacientes,
+    filtros de citas por fecha y médico, mensajes de confirmación y alertas de error. Todos los
+    recursos de Bootstrap se guardaron localmente en <span class="chip">app/static/vendor</span>,
+    por lo que la aplicación funciona sin depender de una conexión a Internet.
+  </p>
+
+  <div class="nota">
+    <strong>Organización del documento.</strong> Las secciones 3 a 6 corresponden exactamente a
+    las cuatro partes del examen. Cada una incluye una explicación breve y las capturas de
+    pantalla que evidencian su implementación.
+  </div>
+</section>
+
+<!-- ================= 2. REQUERIMIENTOS ================= -->
+<section class="parte" id="requerimientos">
+  <div class="section-kicker">Sección 2</div>
+  <h1 class="doc-title">Verificación de requerimientos</h1>
+  <p class="lead">
+    La siguiente tabla relaciona cada requerimiento del enunciado con su evidencia dentro del
+    proyecto y su estado de cumplimiento.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 8mm;">N.º</th>
+        <th>Requerimiento</th>
+        <th>Evidencia en el proyecto</th>
+        <th style="width: 18mm;">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Patrón Flask Application Factory</td>
+        <td><span class="chip">app/__init__.py</span> → <span class="chip">create_app()</span></td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Blueprints <span class="chip">bp_medicos</span>, <span class="chip">bp_pacientes</span> y <span class="chip">bp_citas</span></td>
+        <td><span class="chip">app/blueprints/</span> con sus archivos <span class="chip">routes.py</span></td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Prefijos <span class="chip">/medicos</span>, <span class="chip">/pacientes</span> y <span class="chip">/citas</span></td>
+        <td>Registro con <span class="chip">url_prefix</span> en la fábrica</td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Base de datos SQLite</td>
+        <td><span class="chip">config.py</span> → <span class="chip">sqlite:///…/medicontrol.db</span></td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Modelos Médico, Paciente y Cita con relaciones</td>
+        <td><span class="chip">app/models/</span> + <span class="chip">relationship()</span> y claves foráneas</td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Inicializar, crear y aplicar migraciones</td>
+        <td>Flask-Migrate · revisión <span class="chip">2a61b8b3acee</span></td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>CRUD de médicos, pacientes y citas</td>
+        <td>Rutas y plantillas para listar, crear, editar y eliminar</td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Plantilla base y plantillas heredadas</td>
+        <td><span class="chip">base.html</span> + <span class="chip">{% extends "base.html" %}</span></td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Datos de prueba y operaciones principales</td>
+        <td><span class="chip">seed.py</span> y capturas de la Parte 4</td>
+        <td class="si">Cumplido</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>URL del repositorio en GitHub</td>
+        <td>Portada, anexo y <span class="chip">README.md</span></td>
+        <td class="si">Cumplido</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="dos-columnas">
+    <div class="mini-card">
+      <h4>Resultado técnico</h4>
+      <p>
+        22 capturas de pantalla, 3 módulos CRUD, 10 citas de prueba, 6 médicos y 6 pacientes
+        registrados. Todas las rutas responden correctamente y las validaciones fueron
+        comprobadas de forma manual y automatizada.
+      </p>
+    </div>
+    <div class="mini-card">
+      <h4>Resultado académico</h4>
+      <p>
+        Se aplicaron los contenidos de la materia: fábrica de aplicaciones, Blueprints,
+        ORM, migraciones, herencia de plantillas y Bootstrap, con una estructura ordenada
+        y fácil de mantener.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARTE 1 ================= -->
+<section class="parte" id="parte-1">
+  <div class="section-kicker">Sección 3 · Parte 1</div>
+  <h1 class="doc-title">Arquitectura y configuración</h1>
+  <p class="lead">
+    Application Factory, Blueprints con prefijos y configuración de SQLite.
+  </p>
+
+  <h2>3.1. Patrón Application Factory</h2>
+  <p>
+    Toda la aplicación se construye dentro de la función <span class="chip">create_app()</span>
+    ubicada en <span class="chip">app/__init__.py</span>. Esta función recibe una clase de
+    configuración, crea la instancia de Flask, inicializa las extensiones y registra los
+    Blueprints. Gracias a este patrón, la aplicación puede crearse con configuraciones
+    distintas (por ejemplo, pruebas o producción) sin duplicar código.
+  </p>
+
+  <div class="archivo">app/__init__.py</div>
+  <pre><code><span class="k">def</span> <span class="f">create_app</span>(config_class=Config):
+    app = Flask(__name__, instance_relative_config=<span class="k">True</span>)
+    app.config.from_object(config_class)
+
+    <span class="c"># Carpeta instance/ para la base SQLite</span>
+    os.makedirs(app.instance_path, exist_ok=<span class="k">True</span>)
+
+    <span class="c"># Inicialización de extensiones</span>
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    <span class="c"># Registro de modelos para SQLAlchemy y Flask-Migrate</span>
+    <span class="k">from</span> app <span class="k">import</span> models
+
+    <span class="c"># Registro de Blueprints con sus prefijos</span>
+    <span class="k">from</span> app.blueprints.medicos <span class="k">import</span> bp_medicos
+    <span class="k">from</span> app.blueprints.pacientes <span class="k">import</span> bp_pacientes
+    <span class="k">from</span> app.blueprints.citas <span class="k">import</span> bp_citas
+
+    app.register_blueprint(bp_medicos, url_prefix=<span class="s">"/medicos"</span>)
+    app.register_blueprint(bp_pacientes, url_prefix=<span class="s">"/pacientes"</span>)
+    app.register_blueprint(bp_citas, url_prefix=<span class="s">"/citas"</span>)
+
+    <span class="k">return</span> app</code></pre>
+
+  <h2>3.2. Blueprints registrados</h2>
+  <p>
+    Cada módulo de negocio vive en su propio paquete dentro de
+    <span class="chip">app/blueprints/</span>. El archivo <span class="chip">__init__.py</span>
+    define el Blueprint y el archivo <span class="chip">routes.py</span> contiene sus rutas.
+    De este modo, el monolito queda dividido en módulos con bajo acoplamiento.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Blueprint</th>
+        <th>Prefijo</th>
+        <th>Archivo de rutas</th>
+        <th>Responsabilidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="chip">bp_medicos</span></td>
+        <td><span class="chip">/medicos</span></td>
+        <td><span class="chip">blueprints/medicos/routes.py</span></td>
+        <td>CRUD de médicos y búsqueda por especialidad</td>
+      </tr>
+      <tr>
+        <td><span class="chip">bp_pacientes</span></td>
+        <td><span class="chip">/pacientes</span></td>
+        <td><span class="chip">blueprints/pacientes/routes.py</span></td>
+        <td>CRUD de pacientes y validación de teléfono</td>
+      </tr>
+      <tr>
+        <td><span class="chip">bp_citas</span></td>
+        <td><span class="chip">/citas</span></td>
+        <td><span class="chip">blueprints/citas/routes.py</span></td>
+        <td>Agenda de citas, filtros y control de choques de horario</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3.3. Configuración de SQLite</h2>
+  <p>
+    La cadena de conexión se define en <span class="chip">config.py</span>. Flask crea
+    automáticamente la carpeta <span class="chip">instance/</span> y la base de datos se
+    genera al aplicar las migraciones. También se permite sobrescribir la URL mediante la
+    variable de entorno <span class="chip">DATABASE_URL</span>.
+  </p>
+
+  <div class="archivo">config.py</div>
+  <pre><code><span class="k">class</span> <span class="f">Config</span>:
+    SECRET_KEY = os.environ.get(<span class="s">"SECRET_KEY"</span>, <span class="s">"medicontrol-clave-de-desarrollo-2026"</span>)
+
+    <span class="c"># El examen solicita SQLite como motor de base de datos.</span>
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        <span class="s">"DATABASE_URL"</span>,
+        <span class="s">f"sqlite:///{BASE_DIR / 'instance' / 'medicontrol.db'}"</span>,
+    )
+    SQLALCHEMY_TRACK_MODIFICATIONS = <span class="k">False</span>
+    SQLALCHEMY_ENGINE_OPTIONS = {<span class="s">"pool_pre_ping"</span>: <span class="k">True</span>}</code></pre>
+
+  <h2>3.4. Estructura del proyecto</h2>
+  <p>
+    La organización separa configuración, modelos, Blueprints, plantillas y recursos
+    estáticos. Las migraciones y el script de datos de prueba se mantienen en la raíz para
+    facilitar la puesta en marcha.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/02_estructura_proyecto.png" alt="Estructura del proyecto en terminal">
+    <figcaption>
+      <strong>Figura 1.</strong> Estructura de directorios del proyecto, generada con el comando
+      <span class="chip">tree</span>. Se aprecian los tres Blueprints, los modelos, las plantillas,
+      las migraciones y la carpeta <span class="chip">instance/</span> con la base SQLite.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="parte">
+  <h2>3.5. Aplicación en ejecución</h2>
+  <p>
+    Al iniciar el servidor con <span class="chip">flask --app run.py run</span>, la ruta
+    principal <span class="chip">/</span> presenta el panel de control. En él se muestran los
+    indicadores de médicos, pacientes y citas, las próximas citas ordenadas por fecha y hora,
+    y accesos rápidos a las operaciones más frecuentes.
+  </p>
+  <p>
+    La interfaz es responsiva y utiliza una barra de navegación con acceso directo a los tres
+    módulos. Los colores y componentes fueron personalizados sobre Bootstrap 5 para darle una
+    identidad visual coherente con el sector salud.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/01_panel_principal.png" alt="Panel principal de MediControl">
+    <figcaption>
+      <strong>Figura 2.</strong> Panel principal de MediControl en ejecución. Se visualizan los
+      contadores (6 médicos, 6 pacientes, 10 citas), las citas de hoy y las próximas citas
+      agendadas, además de los accesos rápidos.
+    </figcaption>
+  </figure>
+
+  <div class="nota">
+    <strong>Resultado de la Parte 1.</strong> La aplicación se crea mediante
+    <span class="chip">create_app()</span>, los tres Blueprints están registrados con los prefijos
+    solicitados y SQLite quedó configurado como motor de persistencia. La estructura modular
+    permite agregar nuevos módulos (por ejemplo, especialidades o historiales) sin alterar los
+    existentes.
+  </div>
+</section>
+
+<!-- ================= PARTE 2 ================= -->
+<section class="parte" id="parte-2">
+  <div class="section-kicker">Sección 4 · Parte 2</div>
+  <h1 class="doc-title">Modelos y migraciones</h1>
+  <p class="lead">
+    Entidades Médico, Paciente y Cita, relaciones uno a muchos y versionado del esquema.
+  </p>
+
+  <h2>4.1. Modelos implementados</h2>
+  <p>
+    Los modelos se organizaron en un paquete (<span class="chip">app/models/</span>) con un
+    archivo por entidad. Todos heredan de <span class="chip">db.Model</span> y declaran
+    explícitamente el nombre de su tabla.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Tabla</th>
+        <th>Campos</th>
+        <th>Relación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Medico</strong></td>
+        <td><span class="chip">medicos</span></td>
+        <td>id, nombre, especialidad</td>
+        <td>Un médico tiene muchas citas</td>
+      </tr>
+      <tr>
+        <td><strong>Paciente</strong></td>
+        <td><span class="chip">pacientes</span></td>
+        <td>id, nombre, telefono</td>
+        <td>Un paciente tiene muchas citas</td>
+      </tr>
+      <tr>
+        <td><strong>Cita</strong></td>
+        <td><span class="chip">citas</span></td>
+        <td>id, fecha, hora, medico_id, paciente_id</td>
+        <td>Pertenece a un médico y a un paciente</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="archivo">app/models/medico.py · paciente.py · cita.py</div>
+  <pre><code><span class="k">class</span> <span class="f">Medico</span>(db.Model):
+    __tablename__ = <span class="s">"medicos"</span>
+    id = db.Column(db.Integer, primary_key=<span class="k">True</span>)
+    nombre = db.Column(db.String(<span class="s">120</span>), nullable=<span class="k">False</span>)
+    especialidad = db.Column(db.String(<span class="s">120</span>), nullable=<span class="k">False</span>)
+    citas = db.relationship(<span class="s">"Cita"</span>, back_populates=<span class="s">"medico"</span>)
+
+<span class="k">class</span> <span class="f">Paciente</span>(db.Model):
+    __tablename__ = <span class="s">"pacientes"</span>
+    id = db.Column(db.Integer, primary_key=<span class="k">True</span>)
+    nombre = db.Column(db.String(<span class="s">120</span>), nullable=<span class="k">False</span>)
+    telefono = db.Column(db.String(<span class="s">30</span>), nullable=<span class="k">False</span>)
+    citas = db.relationship(<span class="s">"Cita"</span>, back_populates=<span class="s">"paciente"</span>)
+
+<span class="k">class</span> <span class="f">Cita</span>(db.Model):
+    __tablename__ = <span class="s">"citas"</span>
+    id = db.Column(db.Integer, primary_key=<span class="k">True</span>)
+    fecha = db.Column(db.Date, nullable=<span class="k">False</span>)
+    hora = db.Column(db.Time, nullable=<span class="k">False</span>)
+    medico_id = db.Column(db.Integer, db.ForeignKey(<span class="s">"medicos.id"</span>), nullable=<span class="k">False</span>)
+    paciente_id = db.Column(db.Integer, db.ForeignKey(<span class="s">"pacientes.id"</span>), nullable=<span class="k">False</span>)
+    medico = db.relationship(<span class="s">"Medico"</span>, back_populates=<span class="s">"citas"</span>)
+    paciente = db.relationship(<span class="s">"Paciente"</span>, back_populates=<span class="s">"citas"</span>)</code></pre>
+
+  <h2>4.2. Relaciones e integridad</h2>
+  <p>
+    La relación se declara en ambos sentidos con <span class="chip">back_populates</span>: desde
+    <strong>Medico</strong> y <strong>Paciente</strong> se accede a la colección
+    <span class="chip">citas</span>, y desde <strong>Cita</strong> se accede al
+    <span class="chip">medico</span> y al <span class="chip">paciente</span>. Las claves foráneas
+    <span class="chip">medico_id</span> y <span class="chip">paciente_id</span> son obligatorias
+    y cuentan con índices para acelerar las consultas.
+  </p>
+  <p>
+    Además de la integridad declarada en la base de datos, la capa de aplicación impide
+    eliminar un médico o un paciente que tenga citas asociadas, y valida que no exista otra
+    cita para el mismo médico en la misma fecha y hora.
+  </p>
+
+  <h2>4.3. Migraciones con Flask-Migrate</h2>
+  <p>
+    Se inicializó el repositorio de migraciones, se generó la migración inicial a partir de los
+    modelos y se aplicó sobre SQLite. La revisión generada es
+    <span class="chip">2a61b8b3acee</span>. Los comandos utilizados fueron:
+  </p>
+
+  <div class="archivo">Terminal — inicialización y aplicación de migraciones</div>
+  <pre><code><span class="c"># 1) Inicializar el repositorio de migraciones</span>
+flask --app run.py db init
+
+<span class="c"># 2) Generar la migración inicial comparando los modelos con la BD</span>
+flask --app run.py db migrate -m <span class="s">"Esquema inicial: medicos, pacientes y citas"</span>
+
+<span class="c"># 3) Aplicar los cambios a la base de datos</span>
+flask --app run.py db upgrade
+
+<span class="c"># 4) Verificar la revisión activa</span>
+flask --app run.py db current</code></pre>
+
+  <p>
+    Para comprobar que las migraciones funcionan desde cero, se aplicó la misma revisión sobre
+    una base temporal (<span class="chip">/tmp/medicontrol_demo.db</span>). La salida confirma la
+    creación de las tablas <span class="chip">medicos</span>, <span class="chip">pacientes</span>,
+    <span class="chip">citas</span> y <span class="chip">alembic_version</span>.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/11_migraciones.png" alt="Aplicación de migraciones en terminal">
+    <figcaption>
+      <strong>Figura 3.</strong> Aplicación de la migración inicial sobre una base SQLite nueva.
+      Flask-Migrate ejecuta la revisión <span class="chip">2a61b8b3acee</span> y luego se verifica
+      la revisión activa con <span class="chip">db current</span>.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="parte">
+  <h2>4.4. Esquema resultante en SQLite</h2>
+  <p>
+    El esquema generado incluye las tres tablas de negocio, sus claves primarias, las claves
+    foráneas de <span class="chip">citas</span> y los índices correspondientes. La tabla
+    <span class="chip">alembic_version</span> es administrada por Flask-Migrate para registrar la
+    revisión aplicada.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/12_esquema_bd.png" alt="Esquema de la base de datos SQLite">
+    <figcaption>
+      <strong>Figura 4.</strong> Esquema físico de la base de datos obtenido con
+      <span class="chip">sqlite3 .schema</span>. Se observan las claves foráneas
+      <span class="chip">medico_id</span> y <span class="chip">paciente_id</span> y los índices
+      <span class="chip">ix_citas_medico_id</span> e <span class="chip">ix_citas_paciente_id</span>.
+    </figcaption>
+  </figure>
+
+  <div class="nota">
+    <strong>Resultado de la Parte 2.</strong> Los tres modelos fueron creados con sus relaciones
+    uno a muchos, la migración inicial quedó versionada en el repositorio y el esquema fue
+    aplicado correctamente en SQLite. La base puede reconstruirse desde cero ejecutando
+    <span class="chip">flask db upgrade</span>.
+  </div>
+</section>
+
+<!-- ================= PARTE 3 ================= -->
+<section class="parte" id="parte-3">
+  <div class="section-kicker">Sección 5 · Parte 3</div>
+  <h1 class="doc-title">CRUD y plantillas</h1>
+  <p class="lead">
+    Operaciones de listado, creación, edición y eliminación para los tres módulos, con una
+    plantilla base común.
+  </p>
+
+  <h2>5.1. Rutas implementadas</h2>
+  <p>
+    Cada Blueprint expone un CRUD completo. Las operaciones de eliminación se realizan mediante
+    <span class="chip">POST</span> y solicitan confirmación en el navegador; las demás usan
+    <span class="chip">GET</span> para mostrar formularios y <span class="chip">POST</span> para
+    procesarlos.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Módulo</th>
+        <th>Método y ruta</th>
+        <th>Función</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td rowspan="4">Médicos</td><td><span class="chip">GET /medicos/</span></td><td>index</td><td>Listado y búsqueda</td></tr>
+      <tr><td><span class="chip">GET/POST /medicos/nuevo</span></td><td>crear</td><td>Registro de médico</td></tr>
+      <tr><td><span class="chip">GET/POST /medicos/&lt;id&gt;/editar</span></td><td>editar</td><td>Actualización</td></tr>
+      <tr><td><span class="chip">POST /medicos/&lt;id&gt;/eliminar</span></td><td>eliminar</td><td>Baja controlada</td></tr>
+      <tr><td rowspan="4">Pacientes</td><td><span class="chip">GET /pacientes/</span></td><td>index</td><td>Listado y búsqueda</td></tr>
+      <tr><td><span class="chip">GET/POST /pacientes/nuevo</span></td><td>crear</td><td>Registro de paciente</td></tr>
+      <tr><td><span class="chip">GET/POST /pacientes/&lt;id&gt;/editar</span></td><td>editar</td><td>Actualización</td></tr>
+      <tr><td><span class="chip">POST /pacientes/&lt;id&gt;/eliminar</span></td><td>eliminar</td><td>Baja controlada</td></tr>
+      <tr><td rowspan="4">Citas</td><td><span class="chip">GET /citas/</span></td><td>index</td><td>Listado y filtros</td></tr>
+      <tr><td><span class="chip">GET/POST /citas/nueva</span></td><td>crear</td><td>Agendamiento</td></tr>
+      <tr><td><span class="chip">GET/POST /citas/&lt;id&gt;/editar</span></td><td>editar</td><td>Reprogramación</td></tr>
+      <tr><td><span class="chip">POST /citas/&lt;id&gt;/eliminar</span></td><td>eliminar</td><td>Cancelación</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5.2. Plantilla base y herencia</h2>
+  <p>
+    La plantilla <span class="chip">app/templates/base.html</span> centraliza el documento HTML,
+    la barra de navegación, los mensajes flash, el pie de página y la carga de Bootstrap. Las
+    demás plantillas heredan de ella mediante <span class="chip">{% extends "base.html" %}</span>
+    y sobrescriben los bloques <span class="chip">title</span>, <span class="chip">content</span>
+    y, cuando es necesario, <span class="chip">scripts</span>.
+  </p>
+
+  <div class="archivo">app/templates/base.html (fragmento)</div>
+  <pre><code>&lt;nav class=<span class="s">"navbar navbar-expand-lg navbar-dark app-navbar"</span>&gt;
+  &lt;a class=<span class="s">"navbar-brand"</span> href=<span class="s">"{{ url_for('index') }}"</span>&gt;MediControl&lt;/a&gt;
+  &lt;a href=<span class="s">"{{ url_for('bp_medicos.index') }}"</span>&gt;Médicos&lt;/a&gt;
+  &lt;a href=<span class="s">"{{ url_for('bp_pacientes.index') }}"</span>&gt;Pacientes&lt;/a&gt;
+  &lt;a href=<span class="s">"{{ url_for('bp_citas.index') }}"</span>&gt;Citas&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;main class=<span class="s">"container py-4"</span>&gt;
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% for categoria, mensaje in mensajes %}
+      &lt;div class=<span class="s">"alert alert-{{ categoria }}"</span>&gt;{{ mensaje }}&lt;/div&gt;
+    {% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+&lt;/main&gt;</code></pre>
+
+  <p>
+    Las plantillas de cada módulo se ubican en carpetas separadas
+    (<span class="chip">templates/medicos/</span>, <span class="chip">templates/pacientes/</span>
+    y <span class="chip">templates/citas/</span>). Cada una extiende la base y reutiliza los
+    estilos, la navegación y el sistema de mensajes.
+  </p>
+
+  <div class="archivo">app/templates/medicos/index.html (inicio)</div>
+  <pre><code>{% extends "base.html" %}
+
+{% block title %}Médicos{% endblock %}
+
+{% block content %}
+  &lt;h1&gt;Médicos&lt;/h1&gt;
+  &lt;a href=<span class="s">"{{ url_for('bp_medicos.crear') }}"</span>&gt;Nuevo médico&lt;/a&gt;
+  &lt;table&gt;...&lt;/table&gt;
+{% endblock %}</code></pre>
+</section>
+
+<section class="parte">
+  <h2>5.3. CRUD de Médicos</h2>
+  <p>
+    El listado muestra el identificador, el nombre, la especialidad y la cantidad de citas de
+    cada médico. Incluye búsqueda por nombre o especialidad y acciones de edición y eliminación.
+    Si el médico tiene citas, el sistema impide la baja y muestra una advertencia.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/03_medicos_listado.png" alt="Listado de médicos">
+    <figcaption>
+      <strong>Figura 5.</strong> Listado de médicos con 6 registros. Cada fila muestra el avatar,
+      la especialidad y el número de citas; las acciones permiten editar o eliminar.
+    </figcaption>
+  </figure>
+
+  <figure class="figura">
+    <img src="capturas/04_medicos_formulario.png" alt="Formulario de médico">
+    <figcaption>
+      <strong>Figura 6.</strong> Formulario de registro de un médico. Los campos nombre y
+      especialidad son obligatorios y se validan en el servidor antes de guardar.
+    </figcaption>
+  </figure>
+
+  <figure class="figura">
+    <img src="capturas/05_medicos_busqueda.png" alt="Búsqueda de médicos por especialidad">
+    <figcaption>
+      <strong>Figura 7.</strong> Búsqueda por especialidad. El filtro se aplica sobre el nombre y
+      la especialidad mediante una consulta <span class="chip">ILIKE</span>.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="parte">
+  <h2>5.4. CRUD de Pacientes</h2>
+  <p>
+    El módulo de pacientes permite registrar, buscar, editar y eliminar pacientes. El teléfono
+    se valida con una expresión regular que admite números, espacios, paréntesis, guiones y el
+    signo <span class="chip">+</span>. Al igual que en médicos, no se permite eliminar un
+    paciente con citas registradas.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/06_pacientes_listado.png" alt="Listado de pacientes">
+    <figcaption>
+      <strong>Figura 8.</strong> Listado de pacientes con su teléfono y la cantidad de citas
+      asociadas. La búsqueda funciona por nombre o por teléfono.
+    </figcaption>
+  </figure>
+
+  <figure class="figura">
+    <img src="capturas/07_paciente_edicion.png" alt="Edición de paciente">
+    <figcaption>
+      <strong>Figura 9.</strong> Formulario de edición de un paciente. Los datos existentes se
+      cargan automáticamente y el formulario reutiliza la misma plantilla que el alta.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="parte">
+  <h2>5.5. CRUD de Citas</h2>
+  <p>
+    El módulo de citas relaciona médicos y pacientes. El listado muestra la fecha, la hora, el
+    médico con su especialidad, el paciente con su teléfono y un estado calculado
+    (<em>Programada</em>, <em>Hoy</em> o <em>Atendida</em>). También permite filtrar por fecha y
+    por médico.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/08_citas_listado.png" alt="Listado de citas médicas">
+    <figcaption>
+      <strong>Figura 10.</strong> Listado de citas con 10 registros de prueba. Se muestran los
+      filtros por fecha y médico, los estados y las acciones de edición y eliminación.
+    </figcaption>
+  </figure>
+
+  <figure class="figura">
+    <img src="capturas/09_citas_formulario.png" alt="Formulario de nueva cita">
+    <figcaption>
+      <strong>Figura 11.</strong> Formulario para agendar una cita. La fecha, la hora, el médico y
+      el paciente son obligatorios; los médicos y pacientes se cargan dinámicamente desde la
+      base de datos.
+    </figcaption>
+  </figure>
+
+  <figure class="figura">
+    <img src="capturas/10_citas_edicion.png" alt="Edición de cita">
+    <figcaption>
+      <strong>Figura 12.</strong> Edición de una cita existente. La misma plantilla se reutiliza
+      para el alta y la modificación, conservando los valores seleccionados.
+    </figcaption>
+  </figure>
+
+  <div class="nota">
+    <strong>Resultado de la Parte 3.</strong> Los tres CRUD están completos y las plantillas
+    heredan de <span class="chip">base.html</span>. La interfaz reutiliza componentes de
+    Bootstrap, muestra mensajes flash y ofrece búsqueda, filtros y confirmaciones de borrado.
+  </div>
+</section>
+
+<!-- ================= PARTE 4 ================= -->
+<section class="parte" id="parte-4">
+  <div class="section-kicker">Sección 6 · Parte 4</div>
+  <h1 class="doc-title">Funcionamiento de la aplicación</h1>
+  <p class="lead">
+    Carga de datos de prueba y ejecución de las operaciones más importantes del sistema.
+  </p>
+
+  <h2>6.1. Datos de prueba</h2>
+  <p>
+    El script <span class="chip">seed.py</span> inserta 6 médicos, 6 pacientes y 10 citas. Las
+    fechas de las citas se calculan respecto al día de ejecución para que siempre existan citas
+    pasadas, citas de hoy y citas futuras, lo que permite observar los tres estados del listado.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Médicos</th>
+        <th>Pacientes</th>
+        <th>Citas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Dra. Ana Torres (Cardiología)<br>Dr. Luis Mamani (Pediatría)<br>Dra. Carla Quispe (Dermatología)<br>Dr. Jorge Apaza (Traumatología)<br>Dra. Silvia Choque (Ginecología)<br>Dr. Marco Condori (Medicina General)</td>
+        <td>Juan Pérez Mamani<br>María López Quispe<br>José Huanca Flores<br>Rosa Ticona Nina<br>Carlos Ramos Villca<br>Lucía Fernández Cruz</td>
+        <td>10 citas distribuidas entre 3 días pasados, el día actual y 7 días futuros, con distintos médicos, pacientes y horarios.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <figure class="figura">
+    <img src="capturas/13_datos_prueba.png" alt="Carga de datos de prueba">
+    <figcaption>
+      <strong>Figura 13.</strong> Ejecución de <span class="chip">seed.py --reset</span> y
+      verificación de los registros insertados directamente en SQLite: 6 médicos, 6 pacientes y
+      10 citas.
+    </figcaption>
+  </figure>
+
+  <h2>6.2. Operaciones realizadas</h2>
+  <p>
+    Para comprobar el funcionamiento se realizaron las operaciones más importantes desde la
+    interfaz web: alta de paciente, agendamiento de cita, intento de cita duplicada,
+    reprogramación, cancelación de cita, baja de paciente e intento de baja de un médico con
+    citas. Cada operación se describe a continuación con su captura.
+  </p>
+
+  <h3>1. Alta de un paciente</h3>
+  <p>
+    Se registró a la paciente <strong>Valeria Quispe Rojas</strong> con el teléfono
+    <strong>70998877</strong>. Al guardar, el sistema redirige al listado y muestra el mensaje de
+    confirmación. Este registro se utilizó después para crear una cita.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/14_paciente_creado.png" alt="Paciente creado correctamente">
+    <figcaption>
+      <strong>Figura 14.</strong> Confirmación del alta del paciente. El mensaje flash verde
+      evidencia que la operación se completó y el nuevo registro aparece en el listado.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="parte">
+  <h3>2. Agendamiento de una cita</h3>
+  <p>
+    Se seleccionó la fecha (tres días después de la fecha de ejecución), la hora 13:00, el
+    médico <strong>Dr. Marco Condori</strong> y la paciente recién registrada. El formulario
+    muestra las listas desplegables pobladas desde la base de datos.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/15_cita_formulario_lleno.png" alt="Formulario de cita completo">
+    <figcaption>
+      <strong>Figura 15.</strong> Formulario de cita con todos los datos seleccionados antes de
+      guardar. La fecha y la hora se ingresan con controles nativos del navegador.
+    </figcaption>
+  </figure>
+
+  <p>
+    Al guardar, la cita se inserta y el listado muestra el mensaje de éxito. La nueva cita
+    aparece como <em>Programada</em> y queda asociada al médico y a la paciente.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/16_cita_creada.png" alt="Cita creada correctamente">
+    <figcaption>
+      <strong>Figura 16.</strong> Cita agendada correctamente. El listado incorpora el nuevo
+      registro y muestra la confirmación en la parte superior.
+    </figcaption>
+  </figure>
+
+  <h3>3. Validación de cita duplicada</h3>
+  <p>
+    Se intentó agendar otra cita para el mismo médico, la misma fecha y la misma hora. El
+    sistema rechazó la operación con un mensaje de error y no insertó ningún registro. Esta
+    validación se implementó en <span class="chip">app/blueprints/citas/routes.py</span>.
+  </p>
+
+  <div class="archivo">app/blueprints/citas/routes.py (fragmento)</div>
+  <pre><code>consulta = Cita.query.filter_by(
+    medico_id=medico.id, fecha=fecha, hora=hora
+)
+<span class="k">if</span> cita_actual <span class="k">is not</span> <span class="k">None</span>:
+    consulta = consulta.filter(Cita.id != cita_actual.id)
+
+<span class="k">if</span> consulta.first():
+    errores.append(
+        <span class="s">"El médico ya tiene una cita agendada en esa fecha y hora. "</span>
+        <span class="s">"Elige otro horario."</span>
+    )</code></pre>
+
+  <figure class="figura">
+    <img src="capturas/17_validacion_duplicada.png" alt="Validación de cita duplicada">
+    <figcaption>
+      <strong>Figura 17.</strong> Rechazo de una cita duplicada. El formulario conserva los datos
+      ingresados y muestra el mensaje de error; la base de datos no se modifica.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="parte">
+  <h3>4. Reprogramación de la cita</h3>
+  <p>
+    Se editó la cita creada y se cambió la hora de 13:00 a 14:30. El sistema actualizó el
+    registro y mostró la confirmación correspondiente.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/18_cita_edicion_formulario.png" alt="Edición de la cita creada">
+    <figcaption>
+      <strong>Figura 18.</strong> Formulario de edición con los datos actuales de la cita. Se
+      modificó únicamente la hora para demostrar la actualización.
+    </figcaption>
+  </figure>
+
+  <figure class="figura">
+    <img src="capturas/19_cita_actualizada.png" alt="Cita actualizada correctamente">
+    <figcaption>
+      <strong>Figura 19.</strong> Cita reprogramada a las 14:30. El listado refleja el cambio y
+      muestra el mensaje de actualización exitosa.
+    </figcaption>
+  </figure>
+
+  <h3>5. Cancelación de la cita</h3>
+  <p>
+    Se eliminó la cita creada para la demostración. La operación solicita confirmación y, al
+    aceptarla, elimina el registro y muestra el mensaje de éxito.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/20_cita_eliminada.png" alt="Cita eliminada correctamente">
+    <figcaption>
+      <strong>Figura 20.</strong> Cancelación de la cita. El registro desaparece del listado y se
+      confirma la operación con un mensaje flash.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="parte">
+  <h3>6. Baja del paciente de prueba</h3>
+  <p>
+    Una vez eliminada su cita, se dio de baja a la paciente de prueba. El sistema permitió la
+    operación porque ya no tenía citas asociadas.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/21_paciente_eliminado.png" alt="Paciente eliminado correctamente">
+    <figcaption>
+      <strong>Figura 21.</strong> Baja del paciente de prueba. El listado vuelve a los 6
+      pacientes originales y muestra la confirmación.
+    </figcaption>
+  </figure>
+
+  <h3>7. Protección de la integridad referencial</h3>
+  <p>
+    Se intentó eliminar a la <strong>Dra. Ana Torres</strong>, quien tiene citas registradas. El
+    sistema bloqueó la operación y mostró una advertencia indicando que primero deben eliminarse
+    sus citas. La misma regla se aplica a los pacientes.
+  </p>
+
+  <figure class="figura">
+    <img src="capturas/22_eliminacion_bloqueada.png" alt="Eliminación de médico bloqueada">
+    <figcaption>
+      <strong>Figura 22.</strong> Intento de eliminar un médico con citas. El sistema conserva el
+      registro y muestra una advertencia, evitando dejar citas huérfanas.
+    </figcaption>
+  </figure>
+
+  <h2>6.3. Reglas de validación comprobadas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Regla</th>
+        <th>Comportamiento observado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Campos obligatorios vacíos</td><td>Se rechaza el formulario con mensajes de error y código HTTP 400.</td></tr>
+      <tr><td>Teléfono con formato inválido</td><td>Se valida con expresión regular y se muestra el formato permitido.</td></tr>
+      <tr><td>Cita duplicada (médico + fecha + hora)</td><td>Se rechaza la operación y no se inserta el registro.</td></tr>
+      <tr><td>Eliminar médico con citas</td><td>Se bloquea la baja y se muestra una advertencia.</td></tr>
+      <tr><td>Eliminar paciente con citas</td><td>Se bloquea la baja y se muestra una advertencia.</td></tr>
+      <tr><td>Filtros de citas por fecha o médico</td><td>Se muestran únicamente los registros que coinciden.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nota">
+    <strong>Resultado de la Parte 4.</strong> Las operaciones de alta, consulta, edición y baja
+    funcionaron correctamente. Las validaciones protegieron la información y la base quedó
+    nuevamente con los 6 médicos, 6 pacientes y 10 citas de prueba.
+  </div>
+</section>
+
+<!-- ================= CONCLUSIONES ================= -->
+<section class="parte" id="conclusiones">
+  <div class="section-kicker">Sección 7</div>
+  <h1 class="doc-title">Conclusiones</h1>
+
+  <p>
+    El sistema <strong>MediControl</strong> cumple con todos los requerimientos del segundo
+    parcial práctico. Se implementó una arquitectura monolítica modular con el patrón
+    <em>Application Factory</em>, tres Blueprints independientes y una base de datos SQLite
+    versionada mediante migraciones.
+  </p>
+
+  <h2>Logros técnicos</h2>
+  <ul>
+    <li>Separación clara de responsabilidades entre configuración, modelos, rutas y plantillas.</li>
+    <li>Relaciones uno a muchos correctamente declaradas y verificadas en la base de datos.</li>
+    <li>Migraciones reproducibles: el esquema puede reconstruirse desde cero con un solo comando.</li>
+    <li>CRUD completo para las tres entidades, con búsqueda, filtros, mensajes y confirmaciones.</li>
+    <li>Validaciones de negocio que evitan duplicados y protegen la integridad referencial.</li>
+    <li>Interfaz responsiva con Bootstrap 5 y recursos almacenados localmente.</li>
+  </ul>
+
+  <h2>Aprendizajes</h2>
+  <p>
+    El desarrollo permitió aplicar de forma integrada los temas de la materia: creación de
+    aplicaciones con Flask, uso de Blueprints, mapeo objeto-relacional con SQLAlchemy,
+    migraciones de esquema con Flask-Migrate, herencia de plantillas con Jinja2 y construcción
+    de interfaces con Bootstrap. También se reforzó la importancia de validar los datos tanto
+    en el cliente como en el servidor.
+  </p>
+
+  <h2>Trabajo futuro</h2>
+  <p>
+    Como mejoras futuras se podrían incorporar autenticación de usuarios, roles (administrador,
+    recepcionista, médico), historiales clínicos, notificaciones por correo o WhatsApp, y una
+    API REST para integrar el sistema con otras aplicaciones. La estructura modular actual
+    facilita agregar estos módulos sin reescribir el código existente.
+  </p>
+
+  <div class="firma">
+    <div>
+      Mayte Mikaela Quispe Perez<br>
+      Estudiante · TEM-742 Tecnologías Emergentes II
+    </div>
+  </div>
+</section>
+
+<!-- ================= ANEXO ================= -->
+<section class="parte" id="anexo">
+  <div class="section-kicker">Sección 8</div>
+  <h1 class="doc-title">Anexo — Ejecución y entregables</h1>
+
+  <h2>8.1. Requisitos</h2>
+  <ul>
+    <li>Python 3.13 o superior.</li>
+    <li>Flask 3.1, Flask-SQLAlchemy 3.1, Flask-Migrate 4.1 y SQLAlchemy 2.1.</li>
+    <li>SQLite (incluido con Python).</li>
+    <li>Navegador web moderno.</li>
+  </ul>
+
+  <h2>8.2. Instalación y puesta en marcha</h2>
+  <div class="archivo">Terminal</div>
+  <pre><code><span class="c"># 1) Clonar el repositorio</span>
+git clone https://github.com/mikaelamay/segundo_parcial_mmqp.git
+<span class="k">cd</span> segundo_parcial_mmqp
+
+<span class="c"># 2) Crear y activar el entorno virtual</span>
+python3 -m venv venv
+<span class="k">source</span> venv/bin/activate
+
+<span class="c"># 3) Instalar dependencias</span>
+pip install -r requirements.txt
+
+<span class="c"># 4) Aplicar las migraciones (crea instance/medicontrol.db)</span>
+flask --app run.py db upgrade
+
+<span class="c"># 5) Cargar los datos de prueba</span>
+python seed.py
+
+<span class="c"># 6) Ejecutar la aplicación</span>
+flask --app run.py run</code></pre>
+
+  <p>
+    Luego se abre <span class="chip">http://127.0.0.1:5000</span> en el navegador. La base de
+    datos se crea automáticamente en <span class="chip">instance/medicontrol.db</span> y no se
+    versiona en Git, por lo que debe generarse con las migraciones y el script de datos.
+  </p>
+
+  <h2>8.3. Repositorio del proyecto</h2>
+  <div class="repo-final">
+    <span>Entregable 1 · URL del repositorio en GitHub</span>
+    <code>https://github.com/mikaelamay/segundo_parcial_mmqp</code>
+  </div>
+
+  <h2>8.4. Entregables</h2>
+  <ul class="checklist">
+    <li><strong>Repositorio GitHub</strong> con el código fuente completo, migraciones, datos de prueba y documentación.</li>
+    <li><strong>Documento PDF</strong> con identificación, capturas de pantalla de las cuatro partes y explicación breve de cada una.</li>
+    <li><strong>README.md</strong> con instrucciones de instalación, estructura del proyecto y rutas principales.</li>
+  </ul>
+
+  <h2>8.5. Estructura de la documentación</h2>
+  <table>
+    <thead>
+      <tr><th>Carpeta / archivo</th><th>Contenido</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="chip">app/</span></td><td>Código de la aplicación: fábrica, modelos, Blueprints, plantillas y estáticos.</td></tr>
+      <tr><td><span class="chip">migrations/</span></td><td>Repositorio de migraciones y revisión inicial del esquema.</td></tr>
+      <tr><td><span class="chip">instance/</span></td><td>Base de datos SQLite generada localmente (excluida de Git).</td></tr>
+      <tr><td><span class="chip">docs/</span></td><td>Informe HTML, PDF final, capturas de pantalla y scripts de generación.</td></tr>
+      <tr><td><span class="chip">seed.py</span></td><td>Datos de prueba de médicos, pacientes y citas.</td></tr>
+      <tr><td><span class="chip">config.py</span></td><td>Configuración de la aplicación y cadena de conexión SQLite.</td></tr>
+      <tr><td><span class="chip">run.py</span></td><td>Punto de entrada para ejecutar el servidor Flask.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nota" style="margin-top: 8mm;">
+    <strong>Nota final.</strong> Todas las capturas incluidas en este informe fueron tomadas de la
+    aplicación real en ejecución, con los datos de prueba cargados. El proyecto puede
+    reproducirse siguiendo los pasos del apartado 8.2.
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+$ tree -I "venv|__pycache__|*.pyc|docs|.git" --dirsfirst
+.
+├── app
+│   ├── blueprints
+│   │   ├── citas
+│   │   │   ├── __init__.py
+│   │   │   └── routes.py
+│   │   ├── medicos
+│   │   │   ├── __init__.py
+│   │   │   └── routes.py
+│   │   ├── pacientes
+│   │   │   ├── __init__.py
+│   │   │   └── routes.py
+│   │   └── __init__.py
+│   ├── models
+│   │   ├── cita.py
+│   │   ├── __init__.py
+│   │   ├── medico.py
+│   │   └── paciente.py
+│   ├── static
+│   │   ├── css
+│   │   │   └── styles.css
+│   │   ├── img
+│   │   │   └── favicon.svg
+│   │   └── vendor
+│   │       ├── bootstrap
+│   │       │   ├── bootstrap.bundle.min.js
+│   │       │   └── bootstrap.min.css
+│   │       └── bootstrap-icons
+│   │           ├── fonts
+│   │           │   ├── bootstrap-icons.woff
+│   │           │   └── bootstrap-icons.woff2
+│   │           └── bootstrap-icons.min.css
+│   ├── templates
+│   │   ├── citas
+│   │   │   ├── form.html
+│   │   │   └── index.html
+│   │   ├── medicos
+│   │   │   ├── form.html
+│   │   │   └── index.html
+│   │   ├── pacientes
+│   │   │   ├── form.html
+│   │   │   └── index.html
+│   │   ├── 404.html
+│   │   ├── base.html
+│   │   └── index.html
+│   ├── extensions.py
+│   └── __init__.py
+├── instance
+│   └── medicontrol.db
+├── migrations
+│   ├── versions
+│   │   └── 2a61b8b3acee_esquema_inicial_medicos_pacientes_y_.py
+│   ├── alembic.ini
+│   ├── env.py
+│   ├── README
+│   └── script.py.mako
+├── config.py
+├── requirements.txt
+├── run.py
+└── seed.py
+
+21 directories, 39 files

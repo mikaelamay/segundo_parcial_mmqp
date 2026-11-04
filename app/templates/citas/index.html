@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Citas{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1 class="page-title"><i class="bi bi-calendar2-check text-success me-2"></i>Citas médicas</h1>
+    <p class="page-subtitle">Consulta, agenda y reprograma las citas de la clínica.</p>
+  </div>
+  <a href="{{ url_for('bp_citas.crear') }}" class="btn btn-primary">
+    <i class="bi bi-calendar-plus me-1"></i> Nueva cita
+  </a>
+</div>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <form class="row g-2 align-items-end" method="get" action="{{ url_for('bp_citas.index') }}">
+      <div class="col-sm-6 col-lg-3">
+        <label for="fecha" class="form-label">Filtrar por fecha</label>
+        <input type="date" class="form-control" id="fecha" name="fecha" value="{{ fecha_filtro }}">
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <label for="medico_id" class="form-label">Filtrar por médico</label>
+        <select class="form-select" id="medico_id" name="medico_id">
+          <option value="">Todos los médicos</option>
+          {% for medico in medicos %}
+            <option value="{{ medico.id }}"
+                    {{ 'selected' if medico_filtro == medico.id }}>
+              {{ medico.nombre }} · {{ medico.especialidad }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-lg-6 d-flex flex-wrap gap-2">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-funnel me-1"></i> Aplicar filtros
+        </button>
+        <a href="{{ url_for('bp_citas.index', fecha=hoy.isoformat()) }}"
+           class="btn btn-outline-primary">
+          <i class="bi bi-calendar-day me-1"></i> Citas de hoy
+        </a>
+        {% if fecha_filtro or medico_filtro %}
+          <a href="{{ url_for('bp_citas.index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-x-lg me-1"></i> Limpiar
+          </a>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>
+      Resultados
+      <span class="badge badge-soft-secondary ms-1">{{ citas|length }}</span>
+    </span>
+    {% if fecha_filtro or medico_filtro %}
+      <span class="small text-muted"><i class="bi bi-funnel me-1"></i>Filtros activos</span>
+    {% endif %}
+  </div>
+
+  {% if citas %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th style="width: 70px;">ID</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Médico</th>
+            <th>Paciente</th>
+            <th>Estado</th>
+            <th class="text-end">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cita in citas %}
+            <tr>
+              <td class="text-muted">#{{ cita.id }}</td>
+              <td class="fw-semibold">{{ cita.fecha.strftime('%d/%m/%Y') }}</td>
+              <td><i class="bi bi-clock me-1 text-muted"></i>{{ cita.hora.strftime('%H:%M') }}</td>
+              <td>
+                <div class="fw-semibold">{{ cita.medico.nombre }}</div>
+                <div class="small text-muted">{{ cita.medico.especialidad }}</div>
+              </td>
+              <td>
+                <div class="fw-semibold">{{ cita.paciente.nombre }}</div>
+                <div class="small text-muted">{{ cita.paciente.telefono }}</div>
+              </td>
+              <td>
+                {% if cita.estado == 'Hoy' %}
+                  <span class="badge badge-soft-warning">Hoy</span>
+                {% elif cita.estado == 'Atendida' %}
+                  <span class="badge badge-soft-secondary">Atendida</span>
+                {% else %}
+                  <span class="badge badge-soft-primary">Programada</span>
+                {% endif %}
+              </td>
+              <td class="text-end">
+                <a href="{{ url_for('bp_citas.editar', cita_id=cita.id) }}"
+                   class="btn btn-sm btn-outline-primary btn-icon" title="Editar">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+                <form method="post" class="d-inline"
+                      action="{{ url_for('bp_citas.eliminar', cita_id=cita.id) }}"
+                      onsubmit="return confirm('¿Está seguro de eliminar esta cita?');">
+                  <button type="submit" class="btn btn-sm btn-outline-danger btn-icon" title="Eliminar">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <i class="bi bi-calendar-x"></i>
+      {% if fecha_filtro or medico_filtro %}
+        <p class="mb-3">No hay citas que coincidan con los filtros seleccionados.</p>
+        <a href="{{ url_for('bp_citas.index') }}" class="btn btn-sm btn-outline-secondary">
+          Ver todas las citas
+        </a>
+      {% else %}
+        <p class="mb-3">Todavía no hay citas registradas.</p>
+        <a href="{{ url_for('bp_citas.crear') }}" class="btn btn-sm btn-primary">
+          Agendar la primera cita
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

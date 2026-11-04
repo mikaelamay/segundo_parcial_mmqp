@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Inicio{% endblock %} · MediControl</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark app-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('index') }}">
+        <span class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></span>
+        <span>Medi<span class="text-accent">Control</span></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#menuPrincipal" aria-controls="menuPrincipal"
+              aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto gap-lg-1">
+          <li class="nav-item">
+            <a class="nav-link {{ 'active' if request.endpoint == 'index' }}"
+               href="{{ url_for('index') }}">
+              <i class="bi bi-grid-1x2-fill me-1"></i> Inicio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ 'active' if request.blueprint == 'bp_medicos' }}"
+               href="{{ url_for('bp_medicos.index') }}">
+              <i class="bi bi-person-badge me-1"></i> Médicos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ 'active' if request.blueprint == 'bp_pacientes' }}"
+               href="{{ url_for('bp_pacientes.index') }}">
+              <i class="bi bi-people me-1"></i> Pacientes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ 'active' if request.blueprint == 'bp_citas' }}"
+               href="{{ url_for('bp_citas.index') }}">
+              <i class="bi bi-calendar2-check me-1"></i> Citas
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4 py-lg-5">
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% if mensajes %}
+        {% set iconos = {
+          'success': 'check-circle-fill',
+          'danger': 'exclamation-octagon-fill',
+          'warning': 'exclamation-triangle-fill',
+          'info': 'info-circle-fill'
+        } %}
+        <div class="flash-stack">
+          {% for categoria, mensaje in mensajes %}
+            <div class="alert alert-{{ categoria }} alert-dismissible fade show d-flex align-items-center gap-2"
+                 role="alert">
+              <i class="bi bi-{{ iconos.get(categoria, 'info-circle-fill') }} fs-5"></i>
+              <div>{{ mensaje }}</div>
+              <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"
+                      aria-label="Cerrar"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="app-footer">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <span><i class="bi bi-heart-pulse me-1"></i> MediControl · Sistema de gestión médica</span>
+      <span class="text-muted">TEM-742 Tecnologías Emergentes II · Universidad Pública de El Alto</span>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

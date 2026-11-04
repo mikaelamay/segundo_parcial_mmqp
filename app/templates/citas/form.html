@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% set editando = cita is not none %}
+{% block title %}{{ 'Editar cita' if editando else 'Nueva cita' }}{% endblock %}
+
+{% block content %}
+{% set valor_fecha = request.form.get('fecha', cita.fecha.strftime('%Y-%m-%d') if cita else '') %}
+{% set valor_hora = request.form.get('hora', cita.hora.strftime('%H:%M') if cita else '') %}
+{% set valor_medico = request.form.get('medico_id', cita.medico_id if cita else '')|string %}
+{% set valor_paciente = request.form.get('paciente_id', cita.paciente_id if cita else '')|string %}
+
+<div class="page-head">
+  <div>
+    <h1 class="page-title">
+      <i class="bi bi-calendar-plus text-success me-2"></i>
+      {{ 'Editar cita' if editando else 'Nueva cita' }}
+    </h1>
+    <p class="page-subtitle">
+      {{ 'Reprograma o corrige los datos de la cita.' if editando else 'Agenda una cita seleccionando fecha, hora, médico y paciente.' }}
+    </p>
+  </div>
+  <a href="{{ url_for('bp_citas.index') }}" class="btn btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i> Volver al listado
+  </a>
+</div>
+
+{% if not medicos or not pacientes %}
+  <div class="alert alert-warning d-flex align-items-center gap-2">
+    <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+    <div>
+      Para agendar una cita primero debes tener al menos un médico y un paciente registrados.
+      {% if not medicos %}
+        <a href="{{ url_for('bp_medicos.crear') }}" class="alert-link">Registrar médico</a>.
+      {% endif %}
+      {% if not pacientes %}
+        <a href="{{ url_for('bp_pacientes.crear') }}" class="alert-link">Registrar paciente</a>.
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+<div class="card mx-auto" style="max-width: 820px;">
+  <div class="card-header">
+    <i class="bi bi-clipboard2-pulse me-2 text-success"></i>Datos de la cita
+  </div>
+  <div class="card-body">
+    <form method="post" novalidate>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="fecha" class="form-label">Fecha <span class="text-danger">*</span></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+            <input type="date" class="form-control" id="fecha" name="fecha" required
+                   value="{{ valor_fecha }}">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="hora" class="form-label">Hora <span class="text-danger">*</span></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-clock"></i></span>
+            <input type="time" class="form-control" id="hora" name="hora" required step="900"
+                   value="{{ valor_hora }}">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="medico_id" class="form-label">Médico <span class="text-danger">*</span></label>
+          <select class="form-select" id="medico_id" name="medico_id" required>
+            <option value="" disabled {{ 'selected' if not valor_medico }}>Selecciona un médico</option>
+            {% for medico in medicos %}
+              <option value="{{ medico.id }}"
+                      {{ 'selected' if valor_medico == medico.id|string }}>
+                {{ medico.nombre }} · {{ medico.especialidad }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="paciente_id" class="form-label">Paciente <span class="text-danger">*</span></label>
+          <select class="form-select" id="paciente_id" name="paciente_id" required>
+            <option value="" disabled {{ 'selected' if not valor_paciente }}>Selecciona un paciente</option>
+            {% for paciente in pacientes %}
+              <option value="{{ paciente.id }}"
+                      {{ 'selected' if valor_paciente == paciente.id|string }}>
+                {{ paciente.nombre }} · {{ paciente.telefono }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="alert alert-light border mt-3 mb-0 small text-muted">
+        <i class="bi bi-info-circle me-1 text-primary"></i>
+        Un médico no puede tener dos citas agendadas a la misma fecha y hora.
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-end gap-2 mt-4">
+        <a href="{{ url_for('bp_citas.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" {{ 'disabled' if not medicos or not pacientes }}>
+          <i class="bi bi-check2-circle me-1"></i>
+          {{ 'Guardar cambios' if editando else 'Agendar cita' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

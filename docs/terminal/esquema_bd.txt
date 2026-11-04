@@ -1,0 +1,27 @@
+$ sqlite3 instance/medicontrol.db ".schema medicos"
+CREATE TABLE medicos (
+	id INTEGER NOT NULL, 
+	nombre VARCHAR(120) NOT NULL, 
+	especialidad VARCHAR(120) NOT NULL, 
+	PRIMARY KEY (id)
+);
+$ sqlite3 instance/medicontrol.db ".schema pacientes"
+CREATE TABLE pacientes (
+	id INTEGER NOT NULL, 
+	nombre VARCHAR(120) NOT NULL, 
+	telefono VARCHAR(30) NOT NULL, 
+	PRIMARY KEY (id)
+);
+$ sqlite3 instance/medicontrol.db ".schema citas"
+CREATE TABLE citas (
+	id INTEGER NOT NULL, 
+	fecha DATE NOT NULL, 
+	hora TIME NOT NULL, 
+	medico_id INTEGER NOT NULL, 
+	paciente_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(medico_id) REFERENCES medicos (id), 
+	FOREIGN KEY(paciente_id) REFERENCES pacientes (id)
+);
+CREATE INDEX ix_citas_medico_id ON citas (medico_id);
+CREATE INDEX ix_citas_paciente_id ON citas (paciente_id);

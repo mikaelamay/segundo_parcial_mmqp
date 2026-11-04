@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% set editando = medico is not none %}
+{% block title %}{{ 'Editar médico' if editando else 'Nuevo médico' }}{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1 class="page-title">
+      <i class="bi bi-person-plus text-success me-2"></i>
+      {{ 'Editar médico' if editando else 'Nuevo médico' }}
+    </h1>
+    <p class="page-subtitle">
+      {{ 'Actualiza los datos del profesional.' if editando else 'Registra un nuevo profesional en la clínica.' }}
+    </p>
+  </div>
+  <a href="{{ url_for('bp_medicos.index') }}" class="btn btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i> Volver al listado
+  </a>
+</div>
+
+<div class="card mx-auto" style="max-width: 720px;">
+  <div class="card-header">
+    <i class="bi bi-clipboard2-pulse me-2 text-success"></i>Datos del médico
+  </div>
+  <div class="card-body">
+    <form method="post" novalidate>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre completo <span class="text-danger">*</span></label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-person"></i></span>
+          <input type="text" class="form-control" id="nombre" name="nombre" maxlength="120" required
+                 placeholder="Ej. Dra. Ana Torres"
+                 value="{{ request.form.get('nombre', medico.nombre if medico else '') }}">
+        </div>
+        <div class="form-text">Incluye el título profesional si corresponde.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="especialidad" class="form-label">Especialidad <span class="text-danger">*</span></label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-heart-pulse"></i></span>
+          <input type="text" class="form-control" id="especialidad" name="especialidad"
+                 maxlength="120" required placeholder="Ej. Cardiología"
+                 value="{{ request.form.get('especialidad', medico.especialidad if medico else '') }}">
+        </div>
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-end gap-2 mt-4">
+        <a href="{{ url_for('bp_medicos.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-check2-circle me-1"></i>
+          {{ 'Guardar cambios' if editando else 'Registrar médico' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

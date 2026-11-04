@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<section class="hero mb-4">
+  <div class="position-relative">
+    <span class="badge rounded-pill text-bg-light mb-3">
+      <i class="bi bi-activity me-1"></i> Panel de control
+    </span>
+    <h1 class="mb-2">Bienvenida a MediControl</h1>
+    <p class="mb-4">
+      Administra médicos, pacientes y citas médicas desde un solo lugar.
+      Mantén la agenda de la clínica organizada y sin cruces de horarios.
+    </p>
+    <div class="d-flex flex-wrap gap-2">
+      <a href="{{ url_for('bp_citas.crear') }}" class="btn btn-light px-3">
+        <i class="bi bi-calendar-plus me-1"></i> Agendar cita
+      </a>
+      <a href="{{ url_for('bp_medicos.crear') }}" class="btn btn-outline-light px-3">
+        <i class="bi bi-person-plus me-1"></i> Nuevo médico
+      </a>
+      <a href="{{ url_for('bp_pacientes.crear') }}" class="btn btn-outline-light px-3">
+        <i class="bi bi-person-vcard me-1"></i> Nuevo paciente
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-xl-3">
+    <div class="card stat-card">
+      <div class="stat-icon teal"><i class="bi bi-person-badge"></i></div>
+      <div>
+        <div class="stat-value">{{ total_medicos }}</div>
+        <div class="stat-label">Médicos registrados</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="card stat-card">
+      <div class="stat-icon blue"><i class="bi bi-people"></i></div>
+      <div>
+        <div class="stat-value">{{ total_pacientes }}</div>
+        <div class="stat-label">Pacientes registrados</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="card stat-card">
+      <div class="stat-icon violet"><i class="bi bi-calendar2-check"></i></div>
+      <div>
+        <div class="stat-value">{{ total_citas }}</div>
+        <div class="stat-label">Citas en total</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="card stat-card">
+      <div class="stat-icon amber"><i class="bi bi-clock-history"></i></div>
+      <div>
+        <div class="stat-value">{{ citas_hoy }}</div>
+        <div class="stat-label">Citas para hoy</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card h-100">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-calendar-week me-2 text-success"></i>Próximas citas</span>
+        <a href="{{ url_for('bp_citas.index') }}" class="btn btn-sm btn-outline-primary">
+          Ver todas <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+      {% if proximas %}
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for cita in proximas %}
+                <tr>
+                  <td class="fw-semibold">{{ cita.fecha.strftime('%d/%m/%Y') }}</td>
+                  <td><i class="bi bi-clock me-1 text-muted"></i>{{ cita.hora.strftime('%H:%M') }}</td>
+                  <td>{{ cita.paciente.nombre }}</td>
+                  <td>
+                    <div class="fw-semibold">{{ cita.medico.nombre }}</div>
+                    <div class="small text-muted">{{ cita.medico.especialidad }}</div>
+                  </td>
+                  <td>
+                    {% if cita.estado == 'Hoy' %}
+                      <span class="badge badge-soft-warning">Hoy</span>
+                    {% else %}
+                      <span class="badge badge-soft-primary">Programada</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <i class="bi bi-calendar-x"></i>
+          <p class="mb-2">No hay citas próximas registradas.</p>
+          <a href="{{ url_for('bp_citas.crear') }}" class="btn btn-sm btn-primary">
+            Agendar la primera cita
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card h-100">
+      <div class="card-header">
+        <i class="bi bi-lightning-charge me-2 text-warning"></i>Accesos rápidos
+      </div>
+      <div class="card-body pt-2">
+        <a class="quick-link" href="{{ url_for('bp_medicos.crear') }}">
+          <span class="quick-icon"><i class="bi bi-person-plus"></i></span>
+          <span>
+            <span class="d-block fw-semibold">Registrar médico</span>
+            <span class="small text-muted">Nombre y especialidad</span>
+          </span>
+        </a>
+        <a class="quick-link" href="{{ url_for('bp_pacientes.crear') }}">
+          <span class="quick-icon"><i class="bi bi-person-vcard"></i></span>
+          <span>
+            <span class="d-block fw-semibold">Registrar paciente</span>
+            <span class="small text-muted">Datos de contacto</span>
+          </span>
+        </a>
+        <a class="quick-link" href="{{ url_for('bp_citas.crear') }}">
+          <span class="quick-icon"><i class="bi bi-calendar-plus"></i></span>
+          <span>
+            <span class="d-block fw-semibold">Agendar cita</span>
+            <span class="small text-muted">Fecha, hora y especialista</span>
+          </span>
+        </a>
+        <hr class="my-2">
+        <div class="small text-muted px-2 pb-2">
+          <i class="bi bi-shield-check me-1 text-success"></i>
+          El sistema evita que un médico tenga dos citas a la misma hora.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

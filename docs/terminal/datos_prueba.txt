@@ -1,0 +1,9 @@
+$ ./venv/bin/python seed.py --reset
+Base de datos reiniciada.
+Datos cargados: 6 médicos, 6 pacientes y 10 citas.
+$ sqlite3 instance/medicontrol.db ".tables"
+alembic_version  citas            medicos          pacientes      
+$ sqlite3 -header -column instance/medicontrol.db "SELECT (SELECT COUNT(*) FROM medicos) AS medicos, (SELECT COUNT(*) FROM pacientes) AS pacientes, (SELECT COUNT(*) FROM citas) AS citas;"
+medicos  pacientes  citas
+-------  ---------  -----
+6        6          10   
